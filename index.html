@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jurado Podcast - 50 Podcasts Actualizados</title>
+    <title>Jurado Podcast - 50 Podcasts con Autocompletado</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .podcast-card.evaluated { border-left: 6px solid #10b981; }
@@ -18,24 +18,22 @@
         <header class="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
             <div>
                 <h1 class="text-3xl font-extrabold tracking-tight">Jurado VI Concurso Podcast</h1>
-                <p class="text-slate-500 font-medium text-sm">50 Audios • Rúbrica RNE • Cálculo Automático</p>
+                <p class="text-slate-500 font-medium text-sm">Listado actualizado con detección automática de centros</p>
             </div>
             <div class="flex flex-wrap justify-center gap-2">
                 <button onclick="exportJSON()" class="bg-slate-800 text-white px-4 py-2 rounded-lg text-sm hover:bg-slate-700">Respaldar (JSON)</button>
-                <button onclick="document.getElementById('importFile').click()" class="bg-amber-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-amber-600">Importar Socio</button>
+                <button onclick="document.getElementById('importFile').click()" class="bg-amber-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-amber-600">Importar Datos</button>
                 <input type="file" id="importFile" class="hidden" accept=".json" onchange="importJSON(event)">
-                <button onclick="exportCSV()" class="bg-green-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-green-700">Exportar Acta (CSV)</button>
+                <button onclick="exportCSV()" class="bg-green-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-green-700">Exportar Excel (CSV)</button>
             </div>
         </header>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-            <input type="text" id="search" placeholder="Buscar título..." class="p-3 rounded-xl border border-slate-200 shadow-sm outline-none focus:ring-2 focus:ring-blue-500" oninput="renderList()">
+            <input type="text" id="search" placeholder="Buscar título o centro..." class="p-3 rounded-xl border border-slate-200 shadow-sm outline-none focus:ring-2 focus:ring-blue-500" oninput="renderList()">
             <select id="filterCat" class="p-3 rounded-xl border border-slate-200 shadow-sm outline-none" onchange="renderList()">
                 <option value="all">Todas las Categorías</option>
-                <option value="1">Cat 1 (1º-3º Prim)</option>
-                <option value="2">Cat 2 (4º-6º Prim)</option>
-                <option value="3">Cat 3 (1º-3º ESO)</option>
-                <option value="4">Cat 4 (4º ESO-Bach-FP)</option>
+                <option value="1">Categoría 1</option><option value="2">Categoría 2</option>
+                <option value="3">Categoría 3</option><option value="4">Categoría 4</option>
                 <option value="Sin asignar">Sin asignar</option>
             </select>
             <div class="flex items-center justify-center bg-white rounded-xl border border-slate-200 shadow-sm p-2">
@@ -58,92 +56,84 @@
             </div>
             
             <a id="mLink" target="_blank" class="flex items-center bg-blue-600 text-white px-6 py-4 rounded-xl font-black mb-8 hover:bg-blue-700 transition w-full justify-center shadow-md text-center">
-                REPRODUCIR AUDIO (MÁX 5 MIN) 🎧
+                REPRODUCIR AUDIO 🎧
             </a>
 
             <div id="rubricForm" class="space-y-6">
                 <section>
-                    <h3 class="font-black text-slate-800 border-b border-slate-100 mb-3 pb-1 uppercase text-[11px] tracking-wider">1. Guion y Contenido</h3>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-2 rubric-grid">
-                        <label><input type="radio" name="d1" value="4" class="sr-only peer"><div class="p-2 border-2 rounded-lg h-full text-[9px] peer-checked:border-blue-500 font-medium italic">4. Exc: Cuidado, creativo, con sentido.</div></label>
-                        <label><input type="radio" name="d1" value="3" class="sr-only peer"><div class="p-2 border-2 rounded-lg h-full text-[9px] peer-checked:border-blue-500 font-medium italic">3. Sat: Trabajado, historia integrada.</div></label>
-                        <label><input type="radio" name="d1" value="2" class="sr-only peer"><div class="p-2 border-2 rounded-lg h-full text-[9px] peer-checked:border-blue-500 font-medium italic">2. Mej: Poco original, falta sentido.</div></label>
-                        <label><input type="radio" name="d1" value="1" class="sr-only peer"><div class="p-2 border-2 rounded-lg h-full text-[9px] peer-checked:border-blue-500 font-medium italic">1. Ins: Desordenado, sin narración.</div></label>
+                    <h3 class="font-black text-slate-800 border-b border-slate-100 mb-3 pb-1 uppercase text-[11px]">1. Guion y Contenido</h3>
+                    <div class="grid grid-cols-4 gap-2 rubric-grid">
+                        <label><input type="radio" name="d1" value="4" class="sr-only peer"><div class="p-2 border-2 rounded-lg text-center text-[10px] font-bold peer-checked:border-blue-500">4</div></label>
+                        <label><input type="radio" name="d1" value="3" class="sr-only peer"><div class="p-2 border-2 rounded-lg text-center text-[10px] font-bold peer-checked:border-blue-500">3</div></label>
+                        <label><input type="radio" name="d1" value="2" class="sr-only peer"><div class="p-2 border-2 rounded-lg text-center text-[10px] font-bold peer-checked:border-blue-500">2</div></label>
+                        <label><input type="radio" name="d1" value="1" class="sr-only peer"><div class="p-2 border-2 rounded-lg text-center text-[10px] font-bold peer-checked:border-blue-500">1</div></label>
                     </div>
                 </section>
-
                 <section>
-                    <h3 class="font-black text-slate-800 border-b border-slate-100 mb-3 pb-1 uppercase text-[11px] tracking-wider">2. Calidad Audio (Grabación)</h3>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-2 rubric-grid">
-                        <label><input type="radio" name="d2" value="4" class="sr-only peer"><div class="p-2 border-2 rounded-lg h-full text-[9px] font-medium italic">4. Exc: Sonido nítido, gran dicción.</div></label>
-                        <label><input type="radio" name="d2" value="3" class="sr-only peer"><div class="p-2 border-2 rounded-lg h-full text-[9px] font-medium italic">3. Sat: Buena calidad y tono correcto.</div></label>
-                        <label><input type="radio" name="d2" value="2" class="sr-only peer"><div class="p-2 border-2 rounded-lg h-full text-[9px] font-medium italic">2. Mej: Grabación mejorable, ruido.</div></label>
-                        <label><input type="radio" name="d2" value="1" class="sr-only peer"><div class="p-2 border-2 rounded-lg h-full text-[9px] font-medium italic">1. Ins: Poca calidad, ininteligible.</div></label>
+                    <h3 class="font-black text-slate-800 border-b border-slate-100 mb-3 pb-1 uppercase text-[11px]">2. Calidad Audio</h3>
+                    <div class="grid grid-cols-4 gap-2 rubric-grid">
+                        <label><input type="radio" name="d2" value="4" class="sr-only peer"><div class="p-2 border-2 rounded-lg text-center text-[10px] font-bold peer-checked:border-blue-500">4</div></label>
+                        <label><input type="radio" name="d2" value="3" class="sr-only peer"><div class="p-2 border-2 rounded-lg text-center text-[10px] font-bold peer-checked:border-blue-500">3</div></label>
+                        <label><input type="radio" name="d2" value="2" class="sr-only peer"><div class="p-2 border-2 rounded-lg text-center text-[10px] font-bold peer-checked:border-blue-500">2</div></label>
+                        <label><input type="radio" name="d2" value="1" class="sr-only peer"><div class="p-2 border-2 rounded-lg text-center text-[10px] font-bold peer-checked:border-blue-500">1</div></label>
                     </div>
                 </section>
-
                 <section>
-                    <h3 class="font-black text-slate-800 border-b border-slate-100 mb-3 pb-1 uppercase text-[11px] tracking-wider">3. Calidad Montaje</h3>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-2 rubric-grid">
-                        <label><input type="radio" name="d3" value="4" class="sr-only peer"><div class="p-2 border-2 rounded-lg h-full text-[9px] font-medium italic">4. Exc: Coherencia y creatividad total.</div></label>
-                        <label><input type="radio" name="d3" value="3" class="sr-only peer"><div class="p-2 border-2 rounded-lg h-full text-[9px] font-medium italic">3. Sat: Ensamblado con buen manejo.</div></label>
-                        <label><input type="radio" name="d3" value="2" class="sr-only peer"><div class="p-2 border-2 rounded-lg h-full text-[9px] font-medium italic">2. Mej: Falta cohesión en elementos.</div></label>
-                        <label><input type="radio" name="d3" value="1" class="sr-only peer"><div class="p-2 border-2 rounded-lg h-full text-[9px] font-medium italic">1. Ins: Unión de audio sin sentido.</div></label>
+                    <h3 class="font-black text-slate-800 border-b border-slate-100 mb-3 pb-1 uppercase text-[11px]">3. Montaje</h3>
+                    <div class="grid grid-cols-4 gap-2 rubric-grid">
+                        <label><input type="radio" name="d3" value="4" class="sr-only peer"><div class="p-2 border-2 rounded-lg text-center text-[10px] font-bold peer-checked:border-blue-500">4</div></label>
+                        <label><input type="radio" name="d3" value="3" class="sr-only peer"><div class="p-2 border-2 rounded-lg text-center text-[10px] font-bold peer-checked:border-blue-500">3</div></label>
+                        <label><input type="radio" name="d3" value="2" class="sr-only peer"><div class="p-2 border-2 rounded-lg text-center text-[10px] font-bold peer-checked:border-blue-500">2</div></label>
+                        <label><input type="radio" name="d3" value="1" class="sr-only peer"><div class="p-2 border-2 rounded-lg text-center text-[10px] font-bold peer-checked:border-blue-500">1</div></label>
                     </div>
                 </section>
-
                 <section>
-                    <h3 class="font-black text-slate-800 border-b border-slate-100 mb-3 pb-1 uppercase text-[11px] tracking-wider">4. Trabajo Grupal</h3>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-2 rubric-grid">
-                        <label><input type="radio" name="d4" value="4" class="sr-only peer"><div class="p-2 border-2 rounded-lg h-full text-[9px] font-medium italic">4. Exc: Muchas voces, gran equipo.</div></label>
-                        <label><input type="radio" name="d4" value="3" class="sr-only peer"><div class="p-2 border-2 rounded-lg h-full text-[9px] font-medium italic">3. Sat: Se percibe colaboración.</div></label>
-                        <label><input type="radio" name="d4" value="2" class="sr-only peer"><div class="p-2 border-2 rounded-lg h-full text-[9px] font-medium italic">2. Mej: Participación desigual.</div></label>
-                        <label><input type="radio" name="d4" value="1" class="sr-only peer"><div class="p-2 border-2 rounded-lg h-full text-[9px] font-medium italic">1. Ins: Una sola voz o sin equipo.</div></label>
+                    <h3 class="font-black text-slate-800 border-b border-slate-100 mb-3 pb-1 uppercase text-[11px]">4. Trabajo Grupal</h3>
+                    <div class="grid grid-cols-4 gap-2 rubric-grid">
+                        <label><input type="radio" name="d4" value="4" class="sr-only peer"><div class="p-2 border-2 rounded-lg text-center text-[10px] font-bold peer-checked:border-blue-500">4</div></label>
+                        <label><input type="radio" name="d4" value="3" class="sr-only peer"><div class="p-2 border-2 rounded-lg text-center text-[10px] font-bold peer-checked:border-blue-500">3</div></label>
+                        <label><input type="radio" name="d4" value="2" class="sr-only peer"><div class="p-2 border-2 rounded-lg text-center text-[10px] font-bold peer-checked:border-blue-500">2</div></label>
+                        <label><input type="radio" name="d4" value="1" class="sr-only peer"><div class="p-2 border-2 rounded-lg text-center text-[10px] font-bold peer-checked:border-blue-500">1</div></label>
                     </div>
                 </section>
-
                 <section>
-                    <h3 class="font-black text-slate-800 border-b border-slate-100 mb-3 pb-1 uppercase text-[11px] tracking-wider">5. Contenido Extra</h3>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-2 rubric-grid">
-                        <label><input type="radio" name="d5" value="4" class="sr-only peer"><div class="p-2 border-2 rounded-lg h-full text-[9px] font-medium italic">4. Exc: Guion, fotos, vídeos y logo.</div></label>
-                        <label><input type="radio" name="d5" value="3" class="sr-only peer"><div class="p-2 border-2 rounded-lg h-full text-[9px] font-medium italic">3. Sat: Varios extras y buen logo.</div></label>
-                        <label><input type="radio" name="d5" value="2" class="sr-only peer"><div class="p-2 border-2 rounded-lg h-full text-[9px] font-medium italic">2. Mej: Algún extra, logo básico.</div></label>
-                        <label><input type="radio" name="d5" value="1" class="sr-only peer"><div class="p-2 border-2 rounded-lg h-full text-[9px] font-medium italic">1. Ins: Sin material extra ni logo.</div></label>
+                    <h3 class="font-black text-slate-800 border-b border-slate-100 mb-3 pb-1 uppercase text-[11px]">5. Contenido Extra</h3>
+                    <div class="grid grid-cols-4 gap-2 rubric-grid">
+                        <label><input type="radio" name="d5" value="4" class="sr-only peer"><div class="p-2 border-2 rounded-lg text-center text-[10px] font-bold peer-checked:border-blue-500">4</div></label>
+                        <label><input type="radio" name="d5" value="3" class="sr-only peer"><div class="p-2 border-2 rounded-lg text-center text-[10px] font-bold peer-checked:border-blue-500">3</div></label>
+                        <label><input type="radio" name="d5" value="2" class="sr-only peer"><div class="p-2 border-2 rounded-lg text-center text-[10px] font-bold peer-checked:border-blue-500">2</div></label>
+                        <label><input type="radio" name="d5" value="1" class="sr-only peer"><div class="p-2 border-2 rounded-lg text-center text-[10px] font-bold peer-checked:border-blue-500">1</div></label>
                     </div>
                 </section>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
-                    <div class="flex flex-col gap-1">
-                        <label class="text-[9px] font-black text-slate-400 uppercase">Centro y Categoría</label>
-                        <div class="flex gap-2">
-                            <input type="text" id="mCenter" placeholder="Centro Educativo" class="flex-1 bg-slate-50 p-2 rounded border text-xs outline-none">
-                            <select id="mCat" class="bg-slate-50 p-2 rounded border text-xs outline-none">
-                                <option value="Sin asignar">Cat?</option>
-                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option>
-                            </select>
-                        </div>
-                    </div>
-                    <label class="flex items-center gap-3 bg-amber-50 p-3 rounded-xl border border-amber-200 cursor-pointer">
-                        <input type="checkbox" id="mStar" class="w-5 h-5 accent-amber-500">
-                        <span class="font-black text-amber-900 text-xs italic uppercase">Favorito / Destacado ⭐</span>
-                    </label>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <input type="text" id="mCenter" placeholder="Centro Educativo" class="bg-slate-50 p-2 rounded border text-xs outline-none">
+                    <select id="mCat" class="bg-slate-50 p-2 rounded border text-xs outline-none">
+                        <option value="Sin asignar">Categoría?</option>
+                        <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option>
+                    </select>
                 </div>
+                
+                <label class="flex items-center gap-3 bg-amber-50 p-3 rounded-xl border border-amber-200 cursor-pointer">
+                    <input type="checkbox" id="mStar" class="w-5 h-5 accent-amber-500">
+                    <span class="font-black text-amber-900 text-xs italic uppercase">Destacado ⭐</span>
+                </label>
 
-                <textarea id="mNotes" class="w-full border rounded-xl p-3 h-16 bg-slate-50 text-xs outline-none focus:ring-1 focus:ring-blue-400" placeholder="Observaciones adicionales..."></textarea>
+                <textarea id="mNotes" class="w-full border rounded-xl p-3 h-16 bg-slate-50 text-xs outline-none" placeholder="Observaciones..."></textarea>
 
-                <div class="bg-slate-900 p-5 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-4">
-                    <div class="text-white">
-                        <p class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Media Final (Rúbrica)</p>
+                <div class="bg-slate-900 p-5 rounded-2xl flex items-center justify-between text-white">
+                    <div>
+                        <p class="text-[9px] font-bold text-slate-400 uppercase">Media</p>
                         <p id="liveScore" class="text-3xl font-black">--</p>
                     </div>
-                    <button onclick="save()" class="bg-green-500 text-white px-8 py-3 rounded-xl font-black text-md hover:bg-green-600 transition w-full md:w-auto">GUARDAR EVALUACIÓN</button>
+                    <button onclick="save()" class="bg-green-500 px-8 py-3 rounded-xl font-black text-md hover:bg-green-600 transition">GUARDAR</button>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        const updatedLinks = [
+        const rawLinks = [
             "https://elocuencias.com/podcast/noticias-de-actualidad_1o-b-bto_ies-villa-de-valdemoro/",
             "https://elocuencias.com/podcast/sexto-sentido_1o-e-bto_ies-villa-de-valdemoro/",
             "https://elocuencias.com/podcast/problemas-de-palacio",
@@ -168,4 +158,178 @@
             "https://elocuencias.com/podcast/viajando-voy",
             "https://elocuencias.com/podcast/descenso-al-caos",
             "https://elocuencias.com/podcast/kokoleoko-nos-hemos-dormido",
-            "https://elocuencias.com/podcast/el-re
+            "https://elocuencias.com/podcast/el-reino-del-terror/",
+            "https://elocuencias.com/podcast/pildoras-musicales-mujeres-compositoras",
+            "https://elocuencias.com/podcast/energia-musical-cap-1-los-inicios",
+            "https://elocuencias.com/podcast/crononautas-el-legado-de-julio-verne",
+            "https://elocuencias.com/podcast/abiertamente-de-orriols",
+            "https://elocuencias.com/podcast/drama-entre-paginas",
+            "https://elocuencias.com/podcast/erase-una-vez-el-chisme",
+            "https://elocuencias.com/podcast/german-un-viaje-compartido",
+            "https://elocuencias.com/podcast/rap-de-las-cientificas",
+            "https://elocuencias.com/podcast/musicas-por-la-paz",
+            "https://elocuencias.com/podcast/viajando-por-la-espana-mas-curiosa",
+            "https://elocuencias.com/podcast/las-meninas-un-reels-muy-real",
+            "https://elocuencias.com/podcast/1984-olvido-programado",
+            "https://elocuencias.com/podcast/per-aspera-ad-astra",
+            "https://elocuencias.com/podcast/hablando-en-ciencia",
+            "https://elocuencias.com/podcast/llovera-manana-13-a-19-de-abril-de-2026",
+            "https://elocuencias.com/podcast/todo-pasa-aunque-creas-que-no",
+            "https://elocuencias.com/podcast/voces-del-espino-podcast-artemis-ii",
+            "https://elocuencias.com/podcast/el-rap-del-siglo-xix/",
+            "https://elocuencias.com/podcast/los-musganos-de-la-cobatilla-y-el-rio-dulce",
+            "https://elocuencias.com/podcast/desmantelando-mitos-colegio-corazon-de-maria",
+            "https://elocuencias.com/podcast/gigantes-de-la-mancha-onda-perillan",
+            "https://elocuencias.com/podcast/donde-todo-comenzo-entrevistando-a-profesores",
+            "https://elocuencias.com/podcast/regreso-a-la-luna-onda-perillan",
+            "https://elocuencias.com/podcast/la-voz-del-juan-ramon",
+            "https://elocuencias.com/podcast/entre-normas-y-rebeldia-onda-perillan"
+        ];
+
+        function autoExtract(url) {
+            let slug = url.split('/').filter(Boolean).pop();
+            let parts = slug.split('_');
+            let center = "Sin asignar";
+            let title = parts[0].replace(/-/g, ' ');
+            
+            if (parts.length > 1) {
+                center = parts[parts.length - 1].replace(/-/g, ' ').toUpperCase();
+            } else if (slug.includes('colegio-')) {
+                center = slug.split('colegio-')[1].replace(/-/g, ' ').toUpperCase();
+            } else if (slug.includes('onda-perillan')) {
+                center = "ONDA PERILLÁN";
+            }
+            
+            return { 
+                title: title.charAt(0).toUpperCase() + title.slice(1), 
+                center: center 
+            };
+        }
+
+        let podcasts = rawLinks.map((url, i) => {
+            const data = autoExtract(url);
+            return {
+                id: i + 1,
+                title: data.title,
+                center: data.center,
+                category: "Sin asignar",
+                link: url,
+                evaluated: false,
+                finalScore: null,
+                starred: false,
+                notes: "",
+                rubric: { d1: 0, d2: 0, d3: 0, d4: 0, d5: 0 }
+            };
+        });
+
+        const local = localStorage.getItem('jurado_v8_auto');
+        if(local) podcasts = JSON.parse(local);
+
+        function renderList() {
+            const container = document.getElementById('podcastList');
+            const search = document.getElementById('search').value.toLowerCase();
+            const cat = document.getElementById('filterCat').value;
+            const onlyStar = document.getElementById('filterStarred').checked;
+            container.innerHTML = '';
+
+            podcasts.forEach(p => {
+                const matchSearch = p.title.toLowerCase().includes(search) || p.center.toLowerCase().includes(search);
+                const matchCat = cat === 'all' || p.category === cat;
+                const matchStar = !onlyStar || p.starred;
+
+                if(matchSearch && matchCat && matchStar) {
+                    const card = document.createElement('div');
+                    card.className = `podcast-card bg-white p-4 rounded-xl shadow-sm border cursor-pointer hover:shadow-md transition ${p.evaluated ? 'evaluated' : ''} ${p.starred ? 'starred' : ''}`;
+                    card.onclick = () => openModal(p.id);
+                    card.innerHTML = `
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h3 class="font-bold text-slate-800 text-sm leading-tight">${p.starred ? '⭐ ' : ''}${p.title}</h3>
+                                <p class="text-[9px] text-slate-400 font-bold uppercase mt-1">${p.center} | CAT: ${p.category}</p>
+                            </div>
+                            ${p.evaluated ? `<span class="bg-blue-600 text-white px-2 py-1 rounded-lg font-black text-lg">${p.finalScore}</span>` : `<span class="text-[9px] text-slate-300 font-bold uppercase italic">Pendiente</span>`}
+                        </div>`;
+                    container.appendChild(card);
+                }
+            });
+        }
+
+        let currentId = null;
+        function openModal(id) {
+            currentId = id;
+            const p = podcasts.find(x => x.id === id);
+            document.getElementById('mTitle').innerText = p.title;
+            document.getElementById('mSub').innerText = `${p.center} | Cat: ${p.category}`;
+            document.getElementById('mLink').href = p.link;
+            document.getElementById('mCenter').value = p.center;
+            document.getElementById('mCat').value = p.category;
+            document.getElementById('mStar').checked = p.starred;
+            document.getElementById('mNotes').value = p.notes;
+            for(let i=1; i<=5; i++) {
+                const radios = document.getElementsByName(`d${i}`);
+                radios.forEach(r => r.checked = (r.value == p.rubric[`d${i}`]));
+            }
+            updateLiveScore();
+            document.getElementById('modal').classList.remove('hidden');
+        }
+
+        function closeModal() { document.getElementById('modal').classList.add('hidden'); }
+        document.getElementById('rubricForm').addEventListener('change', updateLiveScore);
+
+        function updateLiveScore() {
+            let total = 0, count = 0;
+            for(let i=1; i<=5; i++){
+                const val = document.querySelector(`input[name="d${i}"]:checked`)?.value;
+                if(val){ total += parseInt(val); count++; }
+            }
+            document.getElementById('liveScore').innerText = count === 5 ? (total / 5).toFixed(1) : "--";
+        }
+
+        function save() {
+            const p = podcasts.find(x => x.id === currentId);
+            let total = 0;
+            for(let i=1; i<=5; i++){
+                const v = document.querySelector(`input[name="d${i}"]:checked`)?.value;
+                if(!v){ alert("Completa la rúbrica (1-4)"); return; }
+                p.rubric[`d${i}`] = parseInt(v);
+                total += parseInt(v);
+            }
+            p.center = document.getElementById('mCenter').value;
+            p.category = document.getElementById('mCat').value;
+            p.finalScore = (total / 5).toFixed(1);
+            p.starred = document.getElementById('mStar').checked;
+            p.notes = document.getElementById('mNotes').value;
+            p.evaluated = true;
+            localStorage.setItem('jurado_v8_auto', JSON.stringify(podcasts));
+            renderList(); closeModal();
+        }
+
+        function exportJSON() {
+            const b = new Blob([JSON.stringify(podcasts)], {type: 'application/json'});
+            const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = "backup.json"; a.click();
+        }
+
+        function importJSON(e) {
+            const r = new FileReader();
+            r.onload = (ev) => {
+                podcasts = JSON.parse(ev.target.result);
+                localStorage.setItem('jurado_v8_auto', JSON.stringify(podcasts));
+                renderList();
+            };
+            r.readAsText(e.target.files[0]);
+        }
+
+        function exportCSV() {
+            let csv = "\uFEFFID;Podcast;Centro;Cat;Media;Guion;Audio;Montaje;Grupo;Extra;Fav;Notas\n";
+            podcasts.forEach(p => {
+                csv += `${p.id};"${p.title}";"${p.center}";${p.category};${p.finalScore || 0};${p.rubric.d1};${p.rubric.d2};${p.rubric.d3};${p.rubric.d4};${p.rubric.d5};${p.starred?'SI':'NO'};"${p.notes}"\n`;
+            });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(new Blob([csv], {type:'text/csv;charset=utf-8'}));
+            a.download = "acta.csv"; a.click();
+        }
+
+        renderList();
+    </script>
+</body>
+</html>
