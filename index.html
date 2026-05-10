@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jurado Podcast - 50 Participantes - Rúbrica Oficial</title>
+    <title>Jurado Podcast - 50 Podcasts Actualizados</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .podcast-card.evaluated { border-left: 6px solid #10b981; }
@@ -17,25 +17,25 @@
     <div class="max-w-5xl mx-auto">
         <header class="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
             <div>
-                <h1 class="text-3xl font-extrabold tracking-tight">Evaluación Jurado VI Concurso</h1>
-                <p class="text-slate-500 font-medium">50 Podcasts • Rúbrica de 5 Dimensiones</p>
+                <h1 class="text-3xl font-extrabold tracking-tight">Jurado VI Concurso Podcast</h1>
+                <p class="text-slate-500 font-medium text-sm">50 Audios • Rúbrica RNE • Cálculo Automático</p>
             </div>
             <div class="flex flex-wrap justify-center gap-2">
                 <button onclick="exportJSON()" class="bg-slate-800 text-white px-4 py-2 rounded-lg text-sm hover:bg-slate-700">Respaldar (JSON)</button>
                 <button onclick="document.getElementById('importFile').click()" class="bg-amber-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-amber-600">Importar Socio</button>
                 <input type="file" id="importFile" class="hidden" accept=".json" onchange="importJSON(event)">
-                <button onclick="exportCSV()" class="bg-green-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-green-700">Exportar Excel (CSV)</button>
+                <button onclick="exportCSV()" class="bg-green-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-green-700">Exportar Acta (CSV)</button>
             </div>
         </header>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-            <input type="text" id="search" placeholder="Buscar título o centro..." class="p-3 rounded-xl border border-slate-200 shadow-sm outline-none focus:ring-2 focus:ring-blue-500" oninput="renderList()">
+            <input type="text" id="search" placeholder="Buscar título..." class="p-3 rounded-xl border border-slate-200 shadow-sm outline-none focus:ring-2 focus:ring-blue-500" oninput="renderList()">
             <select id="filterCat" class="p-3 rounded-xl border border-slate-200 shadow-sm outline-none" onchange="renderList()">
                 <option value="all">Todas las Categorías</option>
-                <option value="1">Categoría 1</option>
-                <option value="2">Categoría 2</option>
-                <option value="3">Categoría 3</option>
-                <option value="4">Categoría 4</option>
+                <option value="1">Cat 1 (1º-3º Prim)</option>
+                <option value="2">Cat 2 (4º-6º Prim)</option>
+                <option value="3">Cat 3 (1º-3º ESO)</option>
+                <option value="4">Cat 4 (4º ESO-Bach-FP)</option>
                 <option value="Sin asignar">Sin asignar</option>
             </select>
             <div class="flex items-center justify-center bg-white rounded-xl border border-slate-200 shadow-sm p-2">
@@ -52,263 +52,120 @@
         <div class="bg-white rounded-2xl max-w-4xl w-full max-h-[95vh] overflow-y-auto p-6 md:p-8 shadow-2xl relative">
             <button onclick="closeModal()" class="fixed md:absolute top-4 right-4 bg-white rounded-full w-10 h-10 shadow-lg text-slate-400 hover:text-slate-600 text-3xl z-10">&times;</button>
             
-            <div class="mb-6">
+            <div class="mb-4">
                 <h2 id="mTitle" class="text-2xl font-bold mb-1 pr-10"></h2>
-                <p id="mSub" class="text-slate-500 font-bold uppercase text-xs tracking-widest"></p>
+                <p id="mSub" class="text-slate-500 font-bold uppercase text-[10px] tracking-widest"></p>
             </div>
             
             <a id="mLink" target="_blank" class="flex items-center bg-blue-600 text-white px-6 py-4 rounded-xl font-black mb-8 hover:bg-blue-700 transition w-full justify-center shadow-md text-center">
-                ABRIR ENLACE Y ESCUCHAR AUDIO 🎧
+                REPRODUCIR AUDIO (MÁX 5 MIN) 🎧
             </a>
 
-            <div id="rubricForm" class="space-y-8">
+            <div id="rubricForm" class="space-y-6">
                 <section>
-                    <h3 class="font-black text-slate-800 border-b-2 border-slate-100 mb-4 pb-1 uppercase text-sm tracking-wider">1. Guion y Contenido</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-4 gap-2 rubric-grid">
-                        <label><input type="radio" name="d1" value="4" class="sr-only peer"><div class="p-3 border-2 rounded-lg h-full text-[10px] peer-checked:border-blue-500 font-medium"><b>4. EXCELENTE:</b> Cuidado, bien trabajado, se ajusta a guion. Historia con sentido, gran creatividad.</div></label>
-                        <label><input type="radio" name="d1" value="3" class="sr-only peer"><div class="p-3 border-2 rounded-lg h-full text-[10px] peer-checked:border-blue-500 font-medium"><b>3. SATISFACTORIO:</b> Ajustado a guion. Historia con sentido. Cierta creatividad.</div></label>
-                        <label><input type="radio" name="d1" value="2" class="sr-only peer"><div class="p-3 border-2 rounded-lg h-full text-[10px] peer-checked:border-blue-500 font-medium"><b>2. MEJORABLE:</b> A veces no se ajusta al guion. Falta creatividad en narración.</div></label>
-                        <label><input type="radio" name="d1" value="1" class="sr-only peer"><div class="p-3 border-2 rounded-lg h-full text-[10px] peer-checked:border-blue-500 font-medium"><b>1. INSUFICIENTE:</b> Desordenado, no se ajusta a escaleta. Sin narración clara.</div></label>
+                    <h3 class="font-black text-slate-800 border-b border-slate-100 mb-3 pb-1 uppercase text-[11px] tracking-wider">1. Guion y Contenido</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-2 rubric-grid">
+                        <label><input type="radio" name="d1" value="4" class="sr-only peer"><div class="p-2 border-2 rounded-lg h-full text-[9px] peer-checked:border-blue-500 font-medium italic">4. Exc: Cuidado, creativo, con sentido.</div></label>
+                        <label><input type="radio" name="d1" value="3" class="sr-only peer"><div class="p-2 border-2 rounded-lg h-full text-[9px] peer-checked:border-blue-500 font-medium italic">3. Sat: Trabajado, historia integrada.</div></label>
+                        <label><input type="radio" name="d1" value="2" class="sr-only peer"><div class="p-2 border-2 rounded-lg h-full text-[9px] peer-checked:border-blue-500 font-medium italic">2. Mej: Poco original, falta sentido.</div></label>
+                        <label><input type="radio" name="d1" value="1" class="sr-only peer"><div class="p-2 border-2 rounded-lg h-full text-[9px] peer-checked:border-blue-500 font-medium italic">1. Ins: Desordenado, sin narración.</div></label>
                     </div>
                 </section>
 
                 <section>
-                    <h3 class="font-black text-slate-800 border-b-2 border-slate-100 mb-4 pb-1 uppercase text-sm tracking-wider">2. Calidad Audio (Grabación)</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-4 gap-2 rubric-grid">
-                        <label><input type="radio" name="d2" value="4" class="sr-only peer"><div class="p-3 border-2 rounded-lg h-full text-[10px] font-medium"><b>4. EXCELENTE:</b> Muy buena calidad sonido/montaje. Excelente dicción y tono.</div></label>
-                        <label><input type="radio" name="d2" value="3" class="sr-only peer"><div class="p-3 border-2 rounded-lg h-full text-[10px] font-medium"><b>3. SATISFACTORIO:</b> Buena calidad de sonido y narración correcta.</div></label>
-                        <label><input type="radio" name="d2" value="2" class="sr-only peer"><div class="p-3 border-2 rounded-lg h-full text-[10px] font-medium"><b>2. MEJORABLE:</b> Sonido y grabaciones mejorables. Dicción regular.</div></label>
-                        <label><input type="radio" name="d2" value="1" class="sr-only peer"><div class="p-3 border-2 rounded-lg h-full text-[10px] font-medium"><b>1. INSUFICIENTE:</b> Poca calidad sonido. Ausencia de narración.</div></label>
+                    <h3 class="font-black text-slate-800 border-b border-slate-100 mb-3 pb-1 uppercase text-[11px] tracking-wider">2. Calidad Audio (Grabación)</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-2 rubric-grid">
+                        <label><input type="radio" name="d2" value="4" class="sr-only peer"><div class="p-2 border-2 rounded-lg h-full text-[9px] font-medium italic">4. Exc: Sonido nítido, gran dicción.</div></label>
+                        <label><input type="radio" name="d2" value="3" class="sr-only peer"><div class="p-2 border-2 rounded-lg h-full text-[9px] font-medium italic">3. Sat: Buena calidad y tono correcto.</div></label>
+                        <label><input type="radio" name="d2" value="2" class="sr-only peer"><div class="p-2 border-2 rounded-lg h-full text-[9px] font-medium italic">2. Mej: Grabación mejorable, ruido.</div></label>
+                        <label><input type="radio" name="d2" value="1" class="sr-only peer"><div class="p-2 border-2 rounded-lg h-full text-[9px] font-medium italic">1. Ins: Poca calidad, ininteligible.</div></label>
                     </div>
                 </section>
 
                 <section>
-                    <h3 class="font-black text-slate-800 border-b-2 border-slate-100 mb-4 pb-1 uppercase text-sm tracking-wider">3. Calidad Montaje</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-4 gap-2 rubric-grid">
-                        <label><input type="radio" name="d3" value="4" class="sr-only peer"><div class="p-3 border-2 rounded-lg h-full text-[10px] font-medium"><b>4. EXCELENTE:</b> Elementos ensamblados con gran coherencia. Excelente manejo edición.</div></label>
-                        <label><input type="radio" name="d3" value="3" class="sr-only peer"><div class="p-3 border-2 rounded-lg h-full text-[10px] font-medium"><b>3. SATISFACTORIO:</b> Ensamblados con bastante coherencia. Buen manejo edición.</div></label>
-                        <label><input type="radio" name="d3" value="2" class="sr-only peer"><div class="p-3 border-2 rounded-lg h-full text-[10px] font-medium"><b>2. MEJORABLE:</b> Falta coherencia y creatividad en la cohesión.</div></label>
-                        <label><input type="radio" name="d3" value="1" class="sr-only peer"><div class="p-3 border-2 rounded-lg h-full text-[10px] font-medium"><b>1. INSUFICIENTE:</b> Faltan varios elementos. Unión sin sentido.</div></label>
+                    <h3 class="font-black text-slate-800 border-b border-slate-100 mb-3 pb-1 uppercase text-[11px] tracking-wider">3. Calidad Montaje</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-2 rubric-grid">
+                        <label><input type="radio" name="d3" value="4" class="sr-only peer"><div class="p-2 border-2 rounded-lg h-full text-[9px] font-medium italic">4. Exc: Coherencia y creatividad total.</div></label>
+                        <label><input type="radio" name="d3" value="3" class="sr-only peer"><div class="p-2 border-2 rounded-lg h-full text-[9px] font-medium italic">3. Sat: Ensamblado con buen manejo.</div></label>
+                        <label><input type="radio" name="d3" value="2" class="sr-only peer"><div class="p-2 border-2 rounded-lg h-full text-[9px] font-medium italic">2. Mej: Falta cohesión en elementos.</div></label>
+                        <label><input type="radio" name="d3" value="1" class="sr-only peer"><div class="p-2 border-2 rounded-lg h-full text-[9px] font-medium italic">1. Ins: Unión de audio sin sentido.</div></label>
                     </div>
                 </section>
 
                 <section>
-                    <h3 class="font-black text-slate-800 border-b-2 border-slate-100 mb-4 pb-1 uppercase text-sm tracking-wider">4. Trabajo Grupal</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-4 gap-2 rubric-grid">
-                        <label><input type="radio" name="d4" value="4" class="sr-only peer"><div class="p-3 border-2 rounded-lg h-full text-[10px] font-medium"><b>4. EXCELENTE:</b> Gran trabajo equipo, muchas voces diferentes.</div></label>
-                        <label><input type="radio" name="d4" value="3" class="sr-only peer"><div class="p-3 border-2 rounded-lg h-full text-[10px] font-medium"><b>3. SATISFACTORIO:</b> Se percibe un buen trabajo en equipo.</div></label>
-                        <label><input type="radio" name="d4" value="2" class="sr-only peer"><div class="p-3 border-2 rounded-lg h-full text-[10px] font-medium"><b>2. MEJORABLE:</b> Trabajo en equipo percibido como mejorable.</div></label>
-                        <label><input type="radio" name="d4" value="1" class="sr-only peer"><div class="p-3 border-2 rounded-lg h-full text-[10px] font-medium"><b>1. INSUFICIENTE:</b> No se percibe trabajo en equipo.</div></label>
+                    <h3 class="font-black text-slate-800 border-b border-slate-100 mb-3 pb-1 uppercase text-[11px] tracking-wider">4. Trabajo Grupal</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-2 rubric-grid">
+                        <label><input type="radio" name="d4" value="4" class="sr-only peer"><div class="p-2 border-2 rounded-lg h-full text-[9px] font-medium italic">4. Exc: Muchas voces, gran equipo.</div></label>
+                        <label><input type="radio" name="d4" value="3" class="sr-only peer"><div class="p-2 border-2 rounded-lg h-full text-[9px] font-medium italic">3. Sat: Se percibe colaboración.</div></label>
+                        <label><input type="radio" name="d4" value="2" class="sr-only peer"><div class="p-2 border-2 rounded-lg h-full text-[9px] font-medium italic">2. Mej: Participación desigual.</div></label>
+                        <label><input type="radio" name="d4" value="1" class="sr-only peer"><div class="p-2 border-2 rounded-lg h-full text-[9px] font-medium italic">1. Ins: Una sola voz o sin equipo.</div></label>
                     </div>
                 </section>
 
                 <section>
-                    <h3 class="font-black text-slate-800 border-b-2 border-slate-100 mb-4 pb-1 uppercase text-sm tracking-wider">5. Contenido Extra</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-4 gap-2 rubric-grid">
-                        <label><input type="radio" name="d5" value="4" class="sr-only peer"><div class="p-3 border-2 rounded-lg h-full text-[10px] font-medium"><b>4. EXCELENTE:</b> Mucho material (guion, fotos, videos). Muy buen logo.</div></label>
-                        <label><input type="radio" name="d5" value="3" class="sr-only peer"><div class="p-3 border-2 rounded-lg h-full text-[10px] font-medium"><b>3. SATISFACTORIO:</b> Varios contenidos extra. Buen diseño logotipo.</div></label>
-                        <label><input type="radio" name="d5" value="2" class="sr-only peer"><div class="p-3 border-2 rounded-lg h-full text-[10px] font-medium"><b>2. MEJORABLE:</b> Algunos extras. Diseño logotipo normal.</div></label>
-                        <label><input type="radio" name="d5" value="1" class="sr-only peer"><div class="p-3 border-2 rounded-lg h-full text-[10px] font-medium"><b>1. INSUFICIENTE:</b> Ningún extra. Logotipo mejorable.</div></label>
+                    <h3 class="font-black text-slate-800 border-b border-slate-100 mb-3 pb-1 uppercase text-[11px] tracking-wider">5. Contenido Extra</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-2 rubric-grid">
+                        <label><input type="radio" name="d5" value="4" class="sr-only peer"><div class="p-2 border-2 rounded-lg h-full text-[9px] font-medium italic">4. Exc: Guion, fotos, vídeos y logo.</div></label>
+                        <label><input type="radio" name="d5" value="3" class="sr-only peer"><div class="p-2 border-2 rounded-lg h-full text-[9px] font-medium italic">3. Sat: Varios extras y buen logo.</div></label>
+                        <label><input type="radio" name="d5" value="2" class="sr-only peer"><div class="p-2 border-2 rounded-lg h-full text-[9px] font-medium italic">2. Mej: Algún extra, logo básico.</div></label>
+                        <label><input type="radio" name="d5" value="1" class="sr-only peer"><div class="p-2 border-2 rounded-lg h-full text-[9px] font-medium italic">1. Ins: Sin material extra ni logo.</div></label>
                     </div>
                 </section>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="flex flex-col gap-2">
-                        <label class="text-[10px] font-black text-slate-400 uppercase">Centro Educativo y Categoría</label>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+                    <div class="flex flex-col gap-1">
+                        <label class="text-[9px] font-black text-slate-400 uppercase">Centro y Categoría</label>
                         <div class="flex gap-2">
-                            <input type="text" id="mCenter" class="flex-1 bg-slate-100 p-2 rounded text-sm outline-none border border-transparent focus:border-blue-300">
-                            <select id="mCat" class="bg-slate-100 p-2 rounded text-sm outline-none border border-transparent focus:border-blue-300">
+                            <input type="text" id="mCenter" placeholder="Centro Educativo" class="flex-1 bg-slate-50 p-2 rounded border text-xs outline-none">
+                            <select id="mCat" class="bg-slate-50 p-2 rounded border text-xs outline-none">
                                 <option value="Sin asignar">Cat?</option>
-                                <option value="1">Cat 1</option><option value="2">Cat 2</option>
-                                <option value="3">Cat 3</option><option value="4">Cat 4</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option>
                             </select>
                         </div>
                     </div>
                     <label class="flex items-center gap-3 bg-amber-50 p-3 rounded-xl border border-amber-200 cursor-pointer">
-                        <input type="checkbox" id="mStar" class="w-6 h-6 accent-amber-500">
-                        <span class="font-black text-amber-900 text-sm italic">DESTACADO ⭐</span>
+                        <input type="checkbox" id="mStar" class="w-5 h-5 accent-amber-500">
+                        <span class="font-black text-amber-900 text-xs italic uppercase">Favorito / Destacado ⭐</span>
                     </label>
                 </div>
 
-                <textarea id="mNotes" class="w-full border-2 border-slate-100 rounded-xl p-4 h-20 focus:ring-2 focus:ring-blue-500 outline-none bg-slate-50 text-sm" placeholder="Añade observaciones..."></textarea>
+                <textarea id="mNotes" class="w-full border rounded-xl p-3 h-16 bg-slate-50 text-xs outline-none focus:ring-1 focus:ring-blue-400" placeholder="Observaciones adicionales..."></textarea>
 
-                <div class="bg-slate-900 p-6 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="bg-slate-900 p-5 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-4">
                     <div class="text-white">
-                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Media Rúbrica (0-4)</p>
-                        <p id="liveScore" class="text-4xl font-black">--</p>
+                        <p class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Media Final (Rúbrica)</p>
+                        <p id="liveScore" class="text-3xl font-black">--</p>
                     </div>
-                    <button onclick="save()" class="bg-green-500 text-white px-10 py-4 rounded-xl font-black text-lg hover:bg-green-600 transition w-full md:w-auto">GUARDAR EVALUACIÓN</button>
+                    <button onclick="save()" class="bg-green-500 text-white px-8 py-3 rounded-xl font-black text-md hover:bg-green-600 transition w-full md:w-auto">GUARDAR EVALUACIÓN</button>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // Los 50 podcasts reales con sus enlaces
-        const podcastData = [
-            { id: 1, title: "Noticias de Actualidad", center: "IES Villa de Valdemoro", category: "4", link: "https://elocuencias.com/podcast/noticias-de-actualidad_1o-b-bto_ies-villa-de-valdemoro/" },
-            { id: 2, title: "Sexto Sentido", center: "IES Villa de Valdemoro", category: "4", link: "https://elocuencias.com/podcast/sexto-sentido-1o-e-bto-ies-villa-de-valdemoro/" },
-            { id: 3, title: "Onda Perillán: Gigantes", center: "Sin asignar", category: "Sin asignar", link: "https://elocuencias.com/podcast/onda-perillan-gigantes/" },
-            { id: 4, title: "Onda Perillán: Regreso a Itaca", center: "Sin asignar", category: "Sin asignar", link: "https://elocuencias.com/podcast/onda-perillan-regreso-a-itaca/" },
-            { id: 5, title: "Onda Perillán: Entre Normas", center: "Sin asignar", category: "Sin asignar", link: "https://elocuencias.com/podcast/onda-perillan-entre-normas/" },
-            { id: 6, title: "La Radio de los Niños", center: "CEIP San Ildefonso", category: "1", link: "https://elocuencias.com/podcast/la-radio-de-los-ninos/" },
-            { id: 7, title: "Misterios de la Historia", center: "IES Isabel la Católica", category: "3", link: "https://elocuencias.com/podcast/misterios-de-la-historia/" },
-            { id: 8, title: "Eco-Voces", center: "IES Parque Goya", category: "4", link: "https://elocuencias.com/podcast/eco-voces/" },
-            { id: 9, title: "El Recreo", center: "CEIP Cervantes", category: "2", link: "https://elocuencias.com/podcast/el-recreo/" },
-            { id: 10, title: "Voces del Mañana", center: "IES Miguel Catalán", category: "3", link: "https://elocuencias.com/podcast/voces-del-manana/" },
-            { id: 11, title: "Camino", center: "Sin asignar", category: "Sin asignar", link: "https://elocuencias.com/podcast/camino/" },
-            { id: 12, title: "Planeta Azul", center: "CEIP Pablo Picasso", category: "2", link: "https://elocuencias.com/podcast/planeta-azul/" },
-            { id: 13, title: "Generación Z", center: "IES Julio Verne", category: "4", link: "https://elocuencias.com/podcast/generacion-z/" },
-            { id: 14, title: "Ciencia en el Aula", center: "IES Ramón y Cajal", category: "3", link: "https://elocuencias.com/podcast/ciencia-en-el-aula/" },
-            { id: 15, title: "Radio Junior", center: "CEIP Los Olivos", category: "1", link: "https://elocuencias.com/podcast/radio-junior/" },
-            { id: 16, title: "Deporte y Vida", center: "IES La Paz", category: "3", link: "https://elocuencias.com/podcast/deporte-y-vida/" },
-            { id: 17, title: "Músicas por la Paz", center: "Sin asignar", category: "Sin asignar", link: "https://elocuencias.com/podcast/musicas-por-la-paz/" },
-            { id: 18, title: "Entrevistas Locas", center: "CEIP Goya", category: "2", link: "https://elocuencias.com/podcast/entrevistas-locas/" },
-            { id: 19, title: "Historia Viva", center: "IES Luis Buñuel", category: "4", link: "https://elocuencias.com/podcast/historia-viva/" },
-            { id: 20, title: "Cuentos de Siempre", center: "CEIP Amanecer", category: "1", link: "https://elocuencias.com/podcast/cuentos-de-siempre/" },
-            { id: 21, title: "Viajando Voy", center: "Sin asignar", category: "Sin asignar", link: "https://elocuencias.com/podcast/viajando-voy/" },
-            { id: 22, title: "Tecnología Hoy", center: "IES El Pilar", category: "4", link: "https://elocuencias.com/podcast/tecnologia-hoy/" },
-            { id: 23, title: "Pequeños Reporteros", center: "CEIP San José", category: "2", link: "https://elocuencias.com/podcast/pequenos-reporteros/" },
-            { id: 24, title: "Onda Literaria", center: "IES Jorge Juan", category: "3", link: "https://elocuencias.com/podcast/onda-literaria/" },
-            { id: 25, title: "Mundo Animal", center: "CEIP Gloria Fuertes", category: "1", link: "https://elocuencias.com/podcast/mundo-animal/" },
-            { id: 26, title: "Problemas de Palacio", center: "Virgen del Carmen Toledo", category: "4", link: "https://elocuencias.com/podcast/problemas-de-palacio/" },
-            { id: 27, title: "Descenso al Caos", center: "Virgen del Carmen Toledo", category: "Sin asignar", link: "https://elocuencias.com/podcast/descenso-al-caos/" },
-            { id: 28, title: "Radio Saludable", center: "CEIP Las Rozas", category: "2", link: "https://elocuencias.com/podcast/radio-saludable/" },
-            { id: 29, title: "Futuro Sostenible", center: "IES Avempace", category: "4", link: "https://elocuencias.com/podcast/futuro-sostenible/" },
-            { id: 30, title: "Rap de las Científicas", center: "Sin asignar", category: "Sin asignar", link: "https://elocuencias.com/podcast/rap-de-las-cientificas/" },
-            { id: 31, title: "Arte y Color", center: "CEIP Miraflores", category: "1", link: "https://elocuencias.com/podcast/arte-y-color/" },
-            { id: 32, title: "Onda Joven", center: "IES Medina Albaida", category: "3", link: "https://elocuencias.com/podcast/onda-joven/" },
-            { id: 33, title: "Nuestros Pueblos", center: "CEIP Rural 1", category: "2", link: "https://elocuencias.com/podcast/nuestros-pueblos/" },
-            { id: 34, title: "Voces de la ESO", center: "IES Azucarera", category: "3", link: "https://elocuencias.com/podcast/voces-de-la-eso/" },
-            { id: 35, title: "Aventura Espacial", center: "CEIP El Parque", category: "1", link: "https://elocuencias.com/podcast/aventura-espacial/" },
-            { id: 36, title: "Radio Debate", center: "IES Clara Campoamor", category: "4", link: "https://elocuencias.com/podcast/radio-debate/" },
-            { id: 37, title: "Eco-Cole", center: "CEIP Santa Engracia", category: "2", link: "https://elocuencias.com/podcast/eco-cole/" },
-            { id: 38, title: "Germán: Un viaje compartido", center: "Sin asignar", category: "Sin asignar", link: "https://elocuencias.com/podcast/german-un-viaje-compartido/" },
-            { id: 39, title: "Onda Digital", center: "IES Francisco de Quevedo", category: "4", link: "https://elocuencias.com/podcast/onda-digital/" },
-            { id: 40, title: "¿Lloverá mañana?", center: "Sin asignar", category: "Sin asignar", link: "https://elocuencias.com/podcast/llovera-manana/" },
-            { id: 41, title: "Informativo Escolar", center: "CEIP La Jota", category: "2", link: "https://elocuencias.com/podcast/informativo-escolar/" },
-            { id: 42, title: "Filosofía para Todos", center: "IES Corona de Aragón", category: "4", link: "https://elocuencias.com/podcast/filosofia-para-todos/" },
-            { id: 43, title: "English Corner", center: "IES Blecua", category: "3", link: "https://elocuencias.com/podcast/english-corner/" },
-            { id: 44, title: "Peque-Música", center: "CEIP Monsalud", category: "1", link: "https://elocuencias.com/podcast/peque-musica/" },
-            { id: 45, title: "Evolz1BRFB", center: "Sin asignar", category: "Sin asignar", link: "https://elocuencias.com/podcast/evolz1brfb/" },
-            { id: 46, title: "Teatro al Oído", center: "IES Andalán", category: "4", link: "https://elocuencias.com/podcast/teatro-al-oido/" },
-            { id: 47, title: "Noticias del Barrio", center: "CEIP Alierta", category: "2", link: "https://elocuencias.com/podcast/noticias-del-barrio/" },
-            { id: 48, title: "Onda Olimpia", center: "IES Olimpia", category: "3", link: "https://elocuencias.com/podcast/onda-olimpia/" },
-            { id: 49, title: "Poesía para Niños", center: "CEIP Tierno Galván", category: "1", link: "https://elocuencias.com/podcast/poesia-para-ninos/" },
-            { id: 50, title: "El Podcast de la Clase", center: "IES Pedro de Luna", category: "4", link: "https://elocuencias.com/podcast/el-podcast-de-la-clase/" }
-        ];
-
-        let podcasts = podcastData.map(p => ({ ...p, evaluated: false, finalScore: null, starred: false, notes: "", rubric: {d1:0,d2:0,d3:0,d4:0,d5:0} }));
-
-        // Memoria Local
-        const local = localStorage.getItem('jurado_v6_final');
-        if(local) podcasts = JSON.parse(local);
-
-        function renderList() {
-            const container = document.getElementById('podcastList');
-            const search = document.getElementById('search').value.toLowerCase();
-            const cat = document.getElementById('filterCat').value;
-            const onlyStar = document.getElementById('filterStarred').checked;
-            container.innerHTML = '';
-
-            podcasts.forEach(p => {
-                const matchSearch = p.title.toLowerCase().includes(search) || p.center.toLowerCase().includes(search);
-                const matchCat = cat === 'all' || p.category === cat;
-                const matchStar = !onlyStar || p.starred;
-
-                if(matchSearch && matchCat && matchStar) {
-                    const card = document.createElement('div');
-                    card.className = `podcast-card bg-white p-4 rounded-xl shadow-sm border cursor-pointer hover:shadow-md transition ${p.evaluated ? 'evaluated' : ''} ${p.starred ? 'starred' : ''}`;
-                    card.onclick = () => openModal(p.id);
-                    card.innerHTML = `
-                        <div class="flex justify-between items-center">
-                            <div>
-                                <h3 class="font-bold text-slate-800 leading-tight">${p.starred ? '⭐ ' : ''}${p.title}</h3>
-                                <p class="text-[10px] text-slate-400 font-bold uppercase">${p.center} | CAT: ${p.category}</p>
-                            </div>
-                            ${p.evaluated ? `<span class="bg-blue-600 text-white px-2 py-1 rounded-lg font-black text-xl">${p.finalScore}</span>` : `<span class="text-[10px] text-slate-300 font-bold uppercase italic">Pendiente</span>`}
-                        </div>`;
-                    container.appendChild(card);
-                }
-            });
-        }
-
-        let currentId = null;
-        function openModal(id) {
-            currentId = id;
-            const p = podcasts.find(x => x.id === id);
-            document.getElementById('mTitle').innerText = p.title;
-            document.getElementById('mSub').innerText = `${p.center} | Cat: ${p.category}`;
-            document.getElementById('mLink').href = p.link;
-            document.getElementById('mCenter').value = p.center;
-            document.getElementById('mCat').value = p.category;
-            document.getElementById('mStar').checked = p.starred;
-            document.getElementById('mNotes').value = p.notes;
-            for(let i=1; i<=5; i++) {
-                const radios = document.getElementsByName(`d${i}`);
-                radios.forEach(r => r.checked = (r.value == p.rubric[`d${i}`]));
-            }
-            updateLiveScore();
-            document.getElementById('modal').classList.remove('hidden');
-        }
-
-        function closeModal() { document.getElementById('modal').classList.add('hidden'); }
-
-        document.getElementById('rubricForm').addEventListener('change', updateLiveScore);
-        function updateLiveScore() {
-            let total = 0, count = 0;
-            for(let i=1; i<=5; i++){
-                const val = document.querySelector(`input[name="d${i}"]:checked`)?.value;
-                if(val){ total += parseInt(val); count++; }
-            }
-            document.getElementById('liveScore').innerText = count === 5 ? (total / 5).toFixed(1) : "--";
-        }
-
-        function save() {
-            const p = podcasts.find(x => x.id === currentId);
-            let total = 0;
-            for(let i=1; i<=5; i++){
-                const v = document.querySelector(`input[name="d${i}"]:checked`)?.value;
-                if(!v){ alert("Por favor completa las 5 dimensiones"); return; }
-                p.rubric[`d${i}`] = parseInt(v);
-                total += parseInt(v);
-            }
-            p.center = document.getElementById('mCenter').value;
-            p.category = document.getElementById('mCat').value;
-            p.finalScore = (total / 5).toFixed(1);
-            p.starred = document.getElementById('mStar').checked;
-            p.notes = document.getElementById('mNotes').value;
-            p.evaluated = true;
-            localStorage.setItem('jurado_v6_final', JSON.stringify(podcasts));
-            renderList(); closeModal();
-        }
-
-        function exportJSON() {
-            const b = new Blob([JSON.stringify(podcasts)], {type: 'application/json'});
-            const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = "backup_jurado.json"; a.click();
-        }
-
-        function importJSON(e) {
-            const r = new FileReader();
-            r.onload = (ev) => {
-                podcasts = JSON.parse(ev.target.result);
-                localStorage.setItem('jurado_v6_final', JSON.stringify(podcasts));
-                renderList();
-            };
-            r.readAsText(e.target.files[0]);
-        }
-
-        function exportCSV() {
-            let csv = "\uFEFFID;Título;Centro;Cat;Media;Guion;Audio;Montaje;Grupo;Extra;Estrella;Notas\n";
-            podcasts.forEach(p => {
-                csv += `${p.id};"${p.title}";"${p.center}";${p.category};${p.finalScore || 0};${p.rubric.d1};${p.rubric.d2};${p.rubric.d3};${p.rubric.d4};${p.rubric.d5};${p.starred?'SI':'NO'};"${p.notes}"\n`;
-            });
-            const a = document.createElement('a');
-            a.href = URL.createObjectURL(new Blob([csv], {type:'text/csv;charset=utf-8'}));
-            a.download = "acta_final.csv"; a.click();
-        }
-
-        renderList();
-    </script>
-</body>
-</html>
+        const updatedLinks = [
+            "https://elocuencias.com/podcast/noticias-de-actualidad_1o-b-bto_ies-villa-de-valdemoro/",
+            "https://elocuencias.com/podcast/sexto-sentido_1o-e-bto_ies-villa-de-valdemoro/",
+            "https://elocuencias.com/podcast/problemas-de-palacio",
+            "https://elocuencias.com/podcast/y-tu-fumas",
+            "https://elocuencias.com/podcast/camino",
+            "https://elocuencias.com/podcast/trend-o-tremendo",
+            "https://elocuencias.com/podcast/el-desafio-camaleon",
+            "https://elocuencias.com/podcast/dispositivos-moviles-en-el-aula-por-el-colegio-sedavi",
+            "https://elocuencias.com/podcast/entre-risas-y-respuestas",
+            "https://elocuencias.com/podcast/curiosidades-matematicas-al-descubierto",
+            "https://elocuencias.com/podcast/padres-y-madres-vs-hijos-e-hijas",
+            "https://elocuencias.com/podcast/la-brevisima-historia-de-la-humanidad-en-5-minutos",
+            "https://elocuencias.com/podcast/versos-robados-al-infinito",
+            "https://elocuencias.com/podcast/un-museo-mil-historias",
+            "https://elocuencias.com/podcast/vapear-no-es-jugar-es-arriesgar",
+            "https://elocuencias.com/podcast/evolz1brfb",
+            "https://elocuencias.com/podcast/lope-en-la-onda-las-voces-de-nuestras-oruguitas-de-primero",
+            "https://elocuencias.com/podcast/no-existo",
+            "https://elocuencias.com/podcast/navidades-around-the-world",
+            "https://elocuencias.com/podcast/p5b-debates-en-red-escolar",
+            "https://elocuencias.com/podcast/las-redes-sociales-en-la-edad-media",
+            "https://elocuencias.com/podcast/viajando-voy",
+            "https://elocuencias.com/podcast/descenso-al-caos",
+            "https://elocuencias.com/podcast/kokoleoko-nos-hemos-dormido",
+            "https://elocuencias.com/podcast/el-re
