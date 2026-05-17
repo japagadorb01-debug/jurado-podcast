@@ -21,7 +21,7 @@
         <header class="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
             <div>
                 <h1 class="text-3xl font-extrabold tracking-tight text-slate-900">Jurado Concurso Podcast RNE - FASE 2</h1>
-                <p class="text-slate-500 font-medium">Fase Final • <span class="text-blue-600 font-bold">CATEGORÍA 3 (1º-3º ESO)</span> • Podium Automático</p>
+                <p class="text-slate-500 font-medium">Fase Final • <span class="text-blue-600 font-bold">CATEGORÍA 3 (1º-3º ESO)</span> • Podium Automático con Desempate</p>
             </div>
             <div class="flex flex-wrap justify-center gap-2">
                 <button onclick="exportJSON()" class="bg-slate-800 text-white px-4 py-2 rounded-lg text-sm hover:bg-slate-700">Respaldar (JSON)</button>
@@ -32,7 +32,7 @@
         </header>
 
         <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm mb-6">
-            <h2 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4 text-center">🏆 Tu TOP 3 Automático (Cat. 3)</h2>
+            <h2 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4 text-center">🏆 Tu TOP 3 Actual (Cat. 3)</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div id="podium1" class="p-4 rounded-xl bg-yellow-50 border border-yellow-200 text-center font-bold text-yellow-800 text-sm">🏆 1º Puesto: Pendiente</div>
                 <div id="podium2" class="p-4 rounded-xl bg-slate-100 border border-slate-200 text-center font-bold text-slate-700 text-sm">🥈 2º Puesto: Pendiente</div>
@@ -84,6 +84,14 @@
                     </div>
                 </div>
 
+                <label class="flex items-center gap-3 bg-amber-50 p-4 rounded-xl border border-amber-200 cursor-pointer">
+                    <input type="checkbox" id="mPinned" class="w-5 h-5 accent-amber-600">
+                    <div>
+                        <span class="font-black text-amber-950 text-sm uppercase block">Desempate Manual (Priorizar en el TOP 3) 📌</span>
+                        <span class="text-amber-700 text-[10px] block">Marca esto si el podcast está empatado en nota con otros pero quieres asegurar su puesto en el podio.</span>
+                    </div>
+                </label>
+
                 <textarea id="mNotes" class="w-full border rounded-xl p-3 h-20 bg-slate-50 text-xs outline-none" placeholder="Observaciones críticas para la deliberación con Fran y Pilar..."></textarea>
 
                 <div class="bg-slate-900 p-6 rounded-2xl flex items-center justify-between text-white shadow-xl">
@@ -95,7 +103,6 @@
     </div>
 
     <script>
-        // LISTADO OFICIAL DE LA FASE 2 - TODOS EN CATEGORÍA 3
         const phase2Data = [
             { id: 1, title: "Discapacidad emocional", center: "IES San Juan de la Cruz (Caravaca de la Cruz, Murcia)", category: "Categoría 3", link: "https://elocuencias.com/podcast/discapacidad-emocional" },
             { id: 2, title: "El espia del meridiano", center: "IES Costa del Sol (Torremolinos, Málaga)", category: "Categoría 3", link: "https://elocuencias.com/podcast/el-espia-del-meridiano" },
@@ -112,11 +119,10 @@
         ];
 
         let podcasts = phase2Data.map(p => ({
-            ...p, evaluated: false, finalScore: null, notes: "", disqualified: false, rank: null,
+            ...p, evaluated: false, finalScore: null, notes: "", disqualified: false, rank: null, pinned: false,
             rubric: { d1: 0, d2: 0, d3: 0, d4: 0, d5: 0 }
         }));
 
-        // Inyectar HTML de la rúbrica de manera limpia
         const rubricHTML = [
             {id: 1, name: "Guion y Contenido"}, {id: 2, name: "Calidad Audio"},
             {id: 3, name: "Montaje"}, {id: 4, name: "Trabajo Grupal"}, {id: 5, name: "Contenido Extra"}
@@ -130,13 +136,20 @@
         `).join('');
         document.getElementById('rubricFields').innerHTML = rubricHTML;
 
-        const local = localStorage.getItem('jurado_fase2_v2_cat3');
+        const local = localStorage.getItem('jurado_fase2_v3_desempate');
         if(local) podcasts = JSON.parse(local);
 
         function calculateRankings() {
             podcasts.forEach(p => p.rank = null);
             let validPodcasts = podcasts.filter(p => p.evaluated && !p.disqualified);
-            validPodcasts.sort((a, b) => parseFloat(b.finalScore) - parseFloat(a.finalScore));
+
+            // Criterio de ordenación complejo: Primero los que tienen PIN (pinned), luego por nota final
+            validPodcasts.sort((a, b) => {
+                if (a.pinned !== b.pinned) {
+                    return b.pinned - a.pinned; // Los true (pinned) van primero
+                }
+                return parseFloat(b.finalScore) - parseFloat(a.finalScore); // Luego por nota decimal
+            });
 
             if (validPodcasts[0]) validPodcasts[0].rank = 1;
             if (validPodcasts[1]) validPodcasts[1].rank = 2;
@@ -159,9 +172,9 @@
                 if(matchSearch) {
                     let rankClass = '';
                     let badge = '';
-                    if(p.rank === 1) { rankClass = 'rank-1'; badge = '<span class="bg-yellow-600 text-white px-2 py-0.5 rounded text-[10px] font-black uppercase">🏆 1º Favorito</span>'; }
-                    else if(p.rank === 2) { rankClass = 'rank-2'; badge = '<span class="bg-slate-500 text-white px-2 py-0.5 rounded text-[10px] font-black uppercase">🥈 2º Favorito</span>'; }
-                    else if(p.rank === 3) { rankClass = 'rank-3'; badge = '<span class="bg-orange-600 text-white px-2 py-0.5 rounded text-[10px] font-black uppercase">🥉 3º Favorito</span>'; }
+                    if(p.rank === 1) { rankClass = 'rank-1'; badge = '<span class="bg-yellow-600 text-white px-2 py-0.5 rounded text-[10px] font-black uppercase">🏆 1º Finalista</span>'; }
+                    else if(p.rank === 2) { rankClass = 'rank-2'; badge = '<span class="bg-slate-500 text-white px-2 py-0.5 rounded text-[10px] font-black uppercase">🥈 2º Finalista</span>'; }
+                    else if(p.rank === 3) { rankClass = 'rank-3'; badge = '<span class="bg-orange-600 text-white px-2 py-0.5 rounded text-[10px] font-black uppercase">🥉 3º Finalista</span>'; }
 
                     const card = document.createElement('div');
                     card.className = `podcast-card bg-white p-4 rounded-xl shadow-sm border cursor-pointer hover:shadow-md transition ${p.evaluated ? 'evaluated' : ''} ${p.disqualified ? 'disqualified' : ''} ${rankClass}`;
@@ -169,10 +182,11 @@
                     card.innerHTML = `
                         <div class="flex justify-between items-center">
                             <div class="max-w-[75%]">
-                                <h3 class="font-bold text-slate-800 text-sm leading-tight">${p.title}</h3>
+                                <h3 class="font-bold text-slate-800 text-sm leading-tight">${p.pinned ? '📌 ' : ''}${p.title}</h3>
                                 <p class="text-[9px] text-slate-400 font-bold uppercase mt-1 truncate">${p.center}</p>
                                 <div class="mt-2 flex gap-2 items-center">
-                                    <span class="bg-blue-50 text-blue-600 text-[9px] px-1.5 py-0.5 rounded font-black uppercase">Cat 3</span>
+                                    <span class="bg-blue-50 text-blue-600 text-[9px] px-1.5 py-0.5 rounded font-black">Cat 3</span>
+                                    ${p.pinned ? '<span class="bg-amber-600 text-white text-[9px] px-1.5 py-0.5 rounded font-bold">📌 Fijado</span>' : ''}
                                     ${badge}
                                 </div>
                             </div>
@@ -196,6 +210,8 @@
             document.getElementById('mCenter').value = p.center;
             document.getElementById('mCat').value = p.category;
             document.getElementById('mNotes').value = p.notes;
+            document.getElementById('mPinned').checked = p.pinned || false;
+            
             for(let i=1; i<=5; i++) {
                 const radios = document.getElementsByName(`d${i}`);
                 radios.forEach(r => r.checked = (r.value == p.rubric[`d${i}`]));
@@ -237,9 +253,12 @@
                 }
                 p.finalScore = (total / 5).toFixed(1);
             } else { p.finalScore = "0.0"; for(let i=1; i<=5; i++) p.rubric[`d${i}`] = 0; }
+            
             p.notes = document.getElementById('mNotes').value;
+            p.pinned = document.getElementById('mPinned').checked;
             p.evaluated = true;
-            localStorage.setItem('jurado_fase2_v2_cat3', JSON.stringify(podcasts));
+            
+            localStorage.setItem('jurado_fase2_v3_desempate', JSON.stringify(podcasts));
             renderList(); closeModal();
         }
 
@@ -252,16 +271,16 @@
             const r = new FileReader();
             r.onload = (ev) => {
                 podcasts = JSON.parse(ev.target.result);
-                localStorage.setItem('jurado_fase2_v2_cat3', JSON.stringify(podcasts));
+                localStorage.setItem('jurado_fase2_v3_desempate', JSON.stringify(podcasts));
                 renderList();
             };
             r.readAsText(e.target.files[0]);
         }
 
         function exportCSV() {
-            let csv = "\uFEFFPUESTO_FAVORITO;ID;Podcast;Centro;Cat;Media;Guion;Audio;Montaje;Grupo;Extra;DESCALIFICADO;Notas\n";
+            let csv = "\uFEFFPUESTO_FAVORITO;ID;Podcast;Centro;Cat;Media;Guion;Audio;Montaje;Grupo;Extra;PINNED;DESCALIFICADO;Notas\n";
             podcasts.forEach(p => {
-                csv += `${p.rank || 'Ninguno'};${p.id};"${p.title}";"${p.center}";${p.category};${p.finalScore || 0};${p.rubric.d1};${p.rubric.d2};${p.rubric.d3};${p.rubric.d4};${p.rubric.d5};${p.disqualified?'SI':'NO'};"${p.notes.replace(/\n/g, ' ')}"\n`;
+                csv += `${p.rank || 'Ninguno'};${p.id};"${p.title}";"${p.center}";${p.category};${p.finalScore || 0};${p.rubric.d1};${p.rubric.d2};${p.rubric.d3};${p.rubric.d4};${p.rubric.d5};${p.pinned?'SI':'NO'};${p.disqualified?'SI':'NO'};"${p.notes.replace(/\n/g, ' ')}"\n`;
             });
             const a = document.createElement('a');
             a.href = URL.createObjectURL(new Blob([csv], {type:'text/csv;charset=utf-8'}));
