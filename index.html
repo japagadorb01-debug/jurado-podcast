@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jurado Podcast - FASE 2: Selección de los 3 Favoritos</title>
+    <title>Jurado Concurso Podcast RNE- FASE 2: Categoría 3</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .podcast-card.evaluated { border-left: 6px solid #10b981; }
@@ -21,7 +21,7 @@
         <header class="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
             <div>
                 <h1 class="text-3xl font-extrabold tracking-tight text-slate-900">Jurado Podcast - FASE 2</h1>
-                <p class="text-slate-500 font-medium">Cálculo Automático de los 3 Finalistas (Podium 1 al 3)</p>
+                <p class="text-slate-500 font-medium">Fase Final • <span class="text-blue-600 font-bold">CATEGORÍA 3 (1º-3º ESO)</span> • Podium Automático</p>
             </div>
             <div class="flex flex-wrap justify-center gap-2">
                 <button onclick="exportJSON()" class="bg-slate-800 text-white px-4 py-2 rounded-lg text-sm hover:bg-slate-700">Respaldar (JSON)</button>
@@ -32,7 +32,7 @@
         </header>
 
         <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm mb-6">
-            <h2 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4 text-center">🏆 Tu Podium Actual Automático</h2>
+            <h2 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4 text-center">🏆 Tu TOP 3 Automático (Cat. 3)</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div id="podium1" class="p-4 rounded-xl bg-yellow-50 border border-yellow-200 text-center font-bold text-yellow-800 text-sm">🏆 1º Puesto: Pendiente</div>
                 <div id="podium2" class="p-4 rounded-xl bg-slate-100 border border-slate-200 text-center font-bold text-slate-700 text-sm">🥈 2º Puesto: Pendiente</div>
@@ -41,7 +41,7 @@
         </div>
 
         <div class="mb-6">
-            <input type="text" id="search" placeholder="Buscar por título, centro o comunidad..." class="w-full p-3 rounded-xl border border-slate-200 shadow-sm outline-none focus:ring-2 focus:ring-blue-500" oninput="renderList()">
+            <input type="text" id="search" placeholder="Buscar por título o centro de la Categoría 3..." class="w-full p-3 rounded-xl border border-slate-200 shadow-sm outline-none focus:ring-2 focus:ring-blue-500" oninput="renderList()">
         </div>
 
         <div id="podcastList" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
@@ -53,7 +53,7 @@
             
             <div class="mb-4">
                 <h2 id="mTitle" class="text-2xl font-bold mb-1 pr-10 text-slate-900"></h2>
-                <p id="mSub" class="text-slate-500 font-bold uppercase text-[10px] tracking-widest"></p>
+                <p id="mSub" class="text-blue-600 font-bold uppercase text-[10px] tracking-widest"></p>
             </div>
             
             <a id="mLink" target="_blank" class="flex items-center bg-blue-600 text-white px-6 py-4 rounded-xl font-black mb-6 hover:bg-blue-700 transition w-full justify-center shadow-md">
@@ -71,24 +71,20 @@
             </div>
 
             <div id="rubricContainer" class="space-y-6">
-                <script>
-                    const dimensions = [
-                        {id: 1, title: "1. Guion y Contenido"},
-                        {id: 2, title: "2. Calidad Audio (Grabación)"},
-                        {id: 3, title: "3. Calidad Montaje"},
-                        {id: 4, title: "4. Trabajo Grupal"},
-                        {id: 5, title: "5. Contenido Extra"}
-                    ];
-                </script>
-                
                 <div id="rubricFields" class="space-y-6"></div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
-                    <input type="text" id="mCenter" placeholder="Centro Educativo" class="bg-slate-50 p-2 rounded border text-xs outline-none focus:ring-1 focus:ring-blue-400" disabled>
-                    <input type="text" id="mCat" placeholder="Categoría" class="bg-slate-50 p-2 rounded border text-xs outline-none focus:ring-1 focus:ring-blue-400" disabled>
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Centro Educativo</label>
+                        <input type="text" id="mCenter" class="w-full bg-slate-100 p-2 rounded border text-xs outline-none text-slate-500" disabled>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Categoría del Concurso</label>
+                        <input type="text" id="mCat" class="w-full bg-slate-100 p-2 rounded border text-xs outline-none text-blue-600 font-bold" disabled>
+                    </div>
                 </div>
 
-                <textarea id="mNotes" class="w-full border rounded-xl p-3 h-20 bg-slate-50 text-xs outline-none" placeholder="Observaciones críticas de la fase final..."></textarea>
+                <textarea id="mNotes" class="w-full border rounded-xl p-3 h-20 bg-slate-50 text-xs outline-none" placeholder="Observaciones críticas para la deliberación con Fran y Pilar..."></textarea>
 
                 <div class="bg-slate-900 p-6 rounded-2xl flex items-center justify-between text-white shadow-xl">
                     <div><p class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Media de Rúbrica</p><p id="liveScore" class="text-4xl font-black">--</p></div>
@@ -99,20 +95,20 @@
     </div>
 
     <script>
-        // LISTADO OFICIAL DE LA FASE 2
+        // LISTADO OFICIAL DE LA FASE 2 - TODOS EN CATEGORÍA 3
         const phase2Data = [
-            { id: 1, title: "Discapacidad emocional", center: "IES San Juan de la Cruz (Caravaca de la Cruz, Murcia)", category: "Sin asignar", link: "https://elocuencias.com/podcast/discapacidad-emocional" },
-            { id: 2, title: "El espia del meridiano", center: "IES Costa del Sol (Torremolinos, Málaga)", category: "Sin asignar", link: "https://elocuencias.com/podcast/el-espia-del-meridiano" },
-            { id: 3, title: "Especial la paz pod dag tristes guerras si no es amor la empresa", center: "IES DIONISIO ALCALÁ GALIANO (CABRA)", category: "Sin asignar", link: "https://elocuencias.com/podcast/especial-la-pazpod-dag-tristes-guerras-si-no-es-amor-la-empresa/" },
-            { id: 4, title: "Cinco lenguas una villa", center: "IES La Magdalena (Avilés, Principado de Asturias)", category: "Sin asignar", link: "https://elocuencias.com/podcast/cinco-lenguas-una-villa-2/" },
-            { id: 5, title: "Margarita salas una cientifica intemporal", center: "IES Sierra de Carrascoy", category: "Sin asignar", link: "https://elocuencias.com/podcast/margarita-salas-una-cientifica-intemporal" },
-            { id: 6, title: "Salsa moliner ies maria de molina", center: "IES María de Molina", category: "Sin asignar", link: "https://elocuencias.com/podcast/salsa-moliner-ies-maria-de-molina" },
-            { id: 7, title: "Adios cordera la vaca amiga y abuela del rio nora", center: "IES Río Nora, Pola de Siero (Asturias)", category: "Sin asignar", link: "https://elocuencias.com/podcast/adios-cordera-la-vaca-amiga-y-abuela-del-rio-nora" },
-            { id: 8, title: "Ueco ies sixto marco de elche la guerra de troya", center: "IES Sixto Marco (Elche, Alicante, Comunidad Valenciana)", category: "Educación Especial", link: "https://elocuencias.com/podcast/ueco-ies-sixto-marco-de-elche-la-guerra-de-troya" },
-            { id: 9, title: "Cocinando emociones recetas para sentir mejor", center: "IES Bioclimático de Badajoz", category: "Sin asignar", link: "https://elocuencias.com/podcast/cocinando-emociones-recetas-para-sentir-mejor" },
-            { id: 10, title: "Y tu fumas", center: "Reinado Corazón de Jesús (Madrid)", category: "3", link: "https://elocuencias.com/podcast/y-tu-fumas" },
-            { id: 11, title: "Erase una vez el chisme", center: "IES Virgen de Covadonga (El Entrego, Asturias)", category: "Sin asignar", link: "https://elocuencias.com/podcast/erase-una-vez-el-chisme" },
-            { id: 12, title: "3 neuronas y 1 micro", center: "IES Margarita Salas de Seseña (Toledo)", category: "Sin asignar", link: "https://elocuencias.com/podcast/3-neuronas-y-1-micro" }
+            { id: 1, title: "Discapacidad emocional", center: "IES San Juan de la Cruz (Caravaca de la Cruz, Murcia)", category: "Categoría 3", link: "https://elocuencias.com/podcast/discapacidad-emocional" },
+            { id: 2, title: "El espia del meridiano", center: "IES Costa del Sol (Torremolinos, Málaga)", category: "Categoría 3", link: "https://elocuencias.com/podcast/el-espia-del-meridiano" },
+            { id: 3, title: "Especial la paz pod dag tristes guerras si no es amor la empresa", center: "IES DIONISIO ALCALÁ GALIANO (CABRA)", category: "Categoría 3", link: "https://elocuencias.com/podcast/especial-la-pazpod-dag-tristes-guerras-si-no-es-amor-la-empresa/" },
+            { id: 4, title: "Cinco lenguas una villa", center: "IES La Magdalena (Avilés, Principado de Asturias)", category: "Categoría 3", link: "https://elocuencias.com/podcast/cinco-lenguas-una-villa-2/" },
+            { id: 5, title: "Margarita salas una cientifica intemporal", center: "IES Sierra de Carrascoy", category: "Categoría 3", link: "https://elocuencias.com/podcast/margarita-salas-una-cientifica-intemporal" },
+            { id: 6, title: "Salsa moliner ies maria de molina", center: "IES María de Molina", category: "Categoría 3", link: "https://elocuencias.com/podcast/salsa-moliner-ies-maria-de-molina" },
+            { id: 7, title: "Adios cordera la vaca amiga y abuela del rio nora", center: "IES Río Nora, Pola de Siero (Asturias)", category: "Categoría 3", link: "https://elocuencias.com/podcast/adios-cordera-la-vaca-amiga-y-abuela-del-rio-nora" },
+            { id: 8, title: "Ueco ies sixto marco de elche la guerra de troya", center: "IES Sixto Marco (Elche, Alicante, Comunidad Valenciana)", category: "Categoría 3", link: "https://elocuencias.com/podcast/ueco-ies-sixto-marco-de-elche-la-guerra-de-troya" },
+            { id: 9, title: "Cocinando emociones recetas para sentir mejor", center: "IES Bioclimático de Badajoz", category: "Categoría 3", link: "https://elocuencias.com/podcast/cocinando-emociones-recetas-para-sentir-mejor" },
+            { id: 10, title: "Y tu fumas", center: "Reinado Corazón de Jesús (Madrid)", category: "Categoría 3", link: "https://elocuencias.com/podcast/y-tu-fumas" },
+            { id: 11, title: "Erase una vez el chisme", center: "IES Virgen de Covadonga (El Entrego, Asturias)", category: "Categoría 3", link: "https://elocuencias.com/podcast/erase-una-vez-el-chisme" },
+            { id: 12, title: "3 neuronas y 1 micro", center: "IES Margarita Salas de Seseña (Toledo)", category: "Categoría 3", link: "https://elocuencias.com/podcast/3-neuronas-y-1-micro" }
         ];
 
         let podcasts = phase2Data.map(p => ({
@@ -134,26 +130,18 @@
         `).join('');
         document.getElementById('rubricFields').innerHTML = rubricHTML;
 
-        const local = localStorage.getItem('jurado_fase2_v1');
+        const local = localStorage.getItem('jurado_fase2_v2_cat3');
         if(local) podcasts = JSON.parse(local);
 
-        // Calcular puestos automáticamente basándose en las notas más altas
         function calculateRankings() {
-            // Resetear todos los ranks primero
             podcasts.forEach(p => p.rank = null);
-
-            // Filtrar los que ya están evaluados y NO descalificados
             let validPodcasts = podcasts.filter(p => p.evaluated && !p.disqualified);
-
-            // Ordenar de mayor a menor nota
             validPodcasts.sort((a, b) => parseFloat(b.finalScore) - parseFloat(a.finalScore));
 
-            // Asignar puestos del 1 al 3 a los mejores
             if (validPodcasts[0]) validPodcasts[0].rank = 1;
             if (validPodcasts[1]) validPodcasts[1].rank = 2;
             if (validPodcasts[2]) validPodcasts[2].rank = 3;
 
-            // Actualizar cuadro de resumen superior
             document.getElementById('podium1').innerText = validPodcasts[0] ? `🏆 1º: ${validPodcasts[0].title} (${validPodcasts[0].finalScore})` : "🏆 1º Puesto: Pendiente";
             document.getElementById('podium2').innerText = validPodcasts[1] ? `🥈 2º: ${validPodcasts[1].title} (${validPodcasts[1].finalScore})` : "🥈 2º Puesto: Pendiente";
             document.getElementById('podium3').innerText = validPodcasts[2] ? `🥉 3º: ${validPodcasts[2].title} (${validPodcasts[2].finalScore})` : "🥉 3º Puesto: Pendiente";
@@ -183,7 +171,10 @@
                             <div class="max-w-[75%]">
                                 <h3 class="font-bold text-slate-800 text-sm leading-tight">${p.title}</h3>
                                 <p class="text-[9px] text-slate-400 font-bold uppercase mt-1 truncate">${p.center}</p>
-                                <div class="mt-2">${badge}</div>
+                                <div class="mt-2 flex gap-2 items-center">
+                                    <span class="bg-blue-50 text-blue-600 text-[9px] px-1.5 py-0.5 rounded font-black uppercase">Cat 3</span>
+                                    ${badge}
+                                </div>
                             </div>
                             <div>
                                 ${p.evaluated ? `<span class="${p.disqualified ? 'text-red-500' : 'bg-slate-800 text-white'} px-2 py-1 rounded-lg font-black text-base">${p.finalScore}</span>` : `<span class="text-[9px] text-slate-300 font-bold uppercase italic">Pendiente</span>`}
@@ -200,7 +191,7 @@
             const p = podcasts.find(x => x.id === id);
             isDisqualified = p.disqualified || false;
             document.getElementById('mTitle').innerText = p.title;
-            document.getElementById('mSub').innerText = `${p.center} | Cat: ${p.category}`;
+            document.getElementById('mSub').innerText = `${p.center} | ${p.category}`;
             document.getElementById('mLink').href = p.link;
             document.getElementById('mCenter').value = p.center;
             document.getElementById('mCat').value = p.category;
@@ -248,20 +239,20 @@
             } else { p.finalScore = "0.0"; for(let i=1; i<=5; i++) p.rubric[`d${i}`] = 0; }
             p.notes = document.getElementById('mNotes').value;
             p.evaluated = true;
-            localStorage.setItem('jurado_fase2_v1', JSON.stringify(podcasts));
+            localStorage.setItem('jurado_fase2_v1_cat3', JSON.stringify(podcasts));
             renderList(); closeModal();
         }
 
         function exportJSON() {
             const b = new Blob([JSON.stringify(podcasts)], {type: 'application/json'});
-            const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = "fase2_respaldo.json"; a.click();
+            const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = "fase2_cat3_respaldo.json"; a.click();
         }
 
         function importJSON(e) {
             const r = new FileReader();
             r.onload = (ev) => {
                 podcasts = JSON.parse(ev.target.result);
-                localStorage.setItem('jurado_fase2_v1', JSON.stringify(podcasts));
+                localStorage.setItem('jurado_fase2_v1_cat3', JSON.stringify(podcasts));
                 renderList();
             };
             r.readAsText(e.target.files[0]);
@@ -274,7 +265,7 @@
             });
             const a = document.createElement('a');
             a.href = URL.createObjectURL(new Blob([csv], {type:'text/csv;charset=utf-8'}));
-            a.download = "acta_finalistas_fase2.csv"; a.click();
+            a.download = "acta_finalistas_fase2_cat3.csv"; a.click();
         }
 
         renderList();
