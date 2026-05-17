@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jurado Concurso Podcast RNE- FASE 2: Categoría 3</title>
+    <title>Jurado Concurso Podcast RNE - FASE 2</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .podcast-card.evaluated { border-left: 6px solid #10b981; }
@@ -20,7 +20,7 @@
     <div class="max-w-5xl mx-auto">
         <header class="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
             <div>
-                <h1 class="text-3xl font-extrabold tracking-tight text-slate-900">Jurado Podcast - FASE 2</h1>
+                <h1 class="text-3xl font-extrabold tracking-tight text-slate-900">Jurado Concurso Podcast RNE - FASE 2</h1>
                 <p class="text-slate-500 font-medium">Fase Final • <span class="text-blue-600 font-bold">CATEGORÍA 3 (1º-3º ESO)</span> • Podium Automático</p>
             </div>
             <div class="flex flex-wrap justify-center gap-2">
@@ -239,7 +239,7 @@
             } else { p.finalScore = "0.0"; for(let i=1; i<=5; i++) p.rubric[`d${i}`] = 0; }
             p.notes = document.getElementById('mNotes').value;
             p.evaluated = true;
-            localStorage.setItem('jurado_fase2_v1_cat3', JSON.stringify(podcasts));
+            localStorage.setItem('jurado_fase2_v2_cat3', JSON.stringify(podcasts));
             renderList(); closeModal();
         }
 
@@ -252,7 +252,7 @@
             const r = new FileReader();
             r.onload = (ev) => {
                 podcasts = JSON.parse(ev.target.result);
-                localStorage.setItem('jurado_fase2_v1_cat3', JSON.stringify(podcasts));
+                localStorage.setItem('jurado_fase2_v2_cat3', JSON.stringify(podcasts));
                 renderList();
             };
             r.readAsText(e.target.files[0]);
